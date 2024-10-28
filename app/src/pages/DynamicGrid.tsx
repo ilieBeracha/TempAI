@@ -36,12 +36,17 @@ export default function DynamicGrid() {
     { i: "navbar", text: "Navigation", type: "navbar" },
     { i: "content", text: "Main Content", type: "content" },
   ]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [layout, setLayout] = useState<Layout[]>([
     { i: "header", x: 0, y: 0, w: 12, h: 2 },
     { i: "navbar", x: 0, y: 2, w: 2, h: 8 },
     { i: "content", x: 2, y: 2, w: 10, h: 8 },
   ]);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const handleLayoutChange = (newLayout: Layout[]) => {
     setLayout(newLayout);
@@ -54,6 +59,15 @@ export default function DynamicGrid() {
   };
 
   const addNewItem = (type: ContentType) => {
+    const uniqueTypes = ["header", "footer", "navbar", "sidebar"];
+    if (uniqueTypes.includes(type)) {
+      const exists = items.some((item) => item.type === type);
+      if (exists) {
+        console.log(`Only one ${type} component is allowed`);
+        return;
+      }
+    }
+
     const id = `${type}-${items.length + 1}`;
     const newItem: GridItem = {
       i: id,
@@ -62,6 +76,7 @@ export default function DynamicGrid() {
     };
     setItems([...items, newItem]);
     setLayout([...layout, { i: id, ...getDefaultLayoutForType(type) }]);
+    setIsDropdownOpen(false); // Close dropdown after adding
   };
 
   const getDefaultLayoutForType = (type: ContentType) => {
@@ -98,7 +113,6 @@ export default function DynamicGrid() {
 
   return (
     <div className="min-h-screen bg-black p-8">
-      {/* Professional Control Panel with Dropdown */}
       <div className="mb-8 bg-[#1a1a1a] p-6 rounded-lg border border-[#333] backdrop-blur-xl relative z-50">
         <div className="flex items-center gap-6">
           <span className="text-white/80 text-sm font-medium whitespace-nowrap">
@@ -106,7 +120,10 @@ export default function DynamicGrid() {
           </span>
 
           <div className="relative">
-            <button className="w-[200px] px-4 py-2 text-sm font-medium text-white/80 bg-[#2a2a2a] border border-[#333] rounded-md hover:bg-[#333] hover:text-white transition-all duration-200 flex items-center justify-between">
+            <button
+              className="w-[200px] px-4 py-2 text-sm font-medium text-white/80 bg-[#2a2a2a] border border-[#333] rounded-md hover:bg-[#333] hover:text-white transition-all duration-200 flex items-center justify-between"
+              onClick={toggleDropdown}
+            >
               <span>Select Component</span>
               <svg
                 className="w-4 h-4 opacity-60"
@@ -123,31 +140,55 @@ export default function DynamicGrid() {
               </svg>
             </button>
 
-            {/* Dropdown Menu */}
-            <div className="absolute top-full left-0 mt-2 w-full bg-[#2a2a2a] border border-[#333] rounded-md shadow-xl opacity-100 z-50">
-              {componentTypes.map((type) => (
-                <button
-                  key={type.value}
-                  onClick={() => addNewItem(type.value)}
-                  className="w-full px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-[#333] hover:text-white transition-all duration-200 text-left flex items-center gap-3"
-                >
-                  <div
-                    className={`w-2 h-2 rounded-full ${
-                      type.value === "header"
-                        ? "bg-blue-400"
-                        : type.value === "navbar"
-                        ? "bg-green-400"
-                        : type.value === "content"
-                        ? "bg-yellow-400"
-                        : type.value === "sidebar"
-                        ? "bg-purple-400"
-                        : "bg-gray-400"
-                    }`}
-                  ></div>
-                  {type.label}
-                </button>
-              ))}
-            </div>
+            {isDropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 w-full bg-[#2a2a2a] border border-[#333] rounded-md shadow-xl z-50">
+                {componentTypes.map((type) => {
+                  const isExisting = items.some(
+                    (item) => item.type === type.value
+                  );
+                  const isUnique = [
+                    "header",
+                    "footer",
+                    "navbar",
+                    "sidebar",
+                  ].includes(type.value);
+
+                  return (
+                    <button
+                      key={type.value}
+                      onClick={() => addNewItem(type.value)}
+                      disabled={isUnique && isExisting}
+                      className={`w-full px-4 py-2.5 text-sm font-medium text-left flex items-center gap-3
+                        ${
+                          isUnique && isExisting
+                            ? "text-white/30 bg-[#222] cursor-not-allowed"
+                            : "text-white/80 hover:bg-[#333] hover:text-white"
+                        } transition-all duration-200`}
+                    >
+                      <div
+                        className={`w-2 h-2 rounded-full ${
+                          type.value === "header"
+                            ? "bg-blue-400"
+                            : type.value === "navbar"
+                            ? "bg-green-400"
+                            : type.value === "content"
+                            ? "bg-yellow-400"
+                            : type.value === "sidebar"
+                            ? "bg-purple-400"
+                            : "bg-gray-400"
+                        } ${isUnique && isExisting ? "opacity-30" : ""}`}
+                      ></div>
+                      {type.label}
+                      {isUnique && isExisting && (
+                        <span className="ml-auto text-xs text-white/30">
+                          Already added
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div className="flex-1 border-b border-white/10"></div>
@@ -172,7 +213,6 @@ export default function DynamicGrid() {
               item.type
             )} rounded-lg border border-[#333] shadow-lg flex flex-col items-center justify-center relative group transition-all duration-300`}
           >
-            {/* Refined Delete Button */}
             <div
               className="absolute top-3 right-3 z-[9999] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               onClick={(e) => deleteItem(e, item.i)}
@@ -194,7 +234,6 @@ export default function DynamicGrid() {
               </button>
             </div>
 
-            {/* Content */}
             <div className="flex flex-col items-center gap-3 p-6">
               <input
                 type="text"
