@@ -10,26 +10,26 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { name: "Dashboard", icon: Layout },
-  { name: "Components", icon: PieChart },
-  { name: "Templates", icon: BarChart },
-  { name: "Analytics", icon: Activity },
-  { name: "Users", icon: Users },
-  { name: "Settings", icon: Settings },
+  { name: "Overview", icon: Layout },
+  { name: "Examples", icon: PieChart },
+  { name: "Showcase", icon: BarChart },
+  { name: "Statistics", icon: Activity },
+  { name: "Team", icon: Users },
+  { name: "Preferences", icon: Settings },
 ];
 
 const recentActivities = [
-  "Generated Button Component",
-  "Customized Landing Page Template",
-  "Updated User Settings",
-  "Created New Analytics Dashboard",
+  "Viewed Button Examples",
+  "Explored Landing Templates",
+  "Updated Profile Settings",
+  "Checked Analytics Report",
 ];
 
 const quickActions = [
-  { name: "Create Component", icon: Layout },
-  { name: "View Templates", icon: BarChart },
-  { name: "Manage Settings", icon: Settings },
-  { name: "Help Center", icon: HelpCircle },
+  { name: "View Demo", icon: Layout },
+  { name: "Templates", icon: BarChart },
+  { name: "Settings", icon: Settings },
+  { name: "Support", icon: HelpCircle },
 ];
 
 export default function DashboardTemplate() {
@@ -42,15 +42,15 @@ export default function DashboardTemplate() {
     >
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold text-indigo-600">AI Dashboard</h1>
+        <div className="p-4 py-8">
+          <h1 className="text-2xl font-bold text-emerald-600">AI Dashboard</h1>
         </div>
         <nav className="mt-8">
           {menuItems.map((item, index) => (
             <motion.a
               key={item.name}
               href="#"
-              className="flex items-center px-6 py-3 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200"
+              className="flex items-center px-6 py-3 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors duration-200"
               whileHover={{ x: 5 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,14 +68,14 @@ export default function DashboardTemplate() {
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <h2 className="text-2xl font-semibold text-gray-800">Dashboard</h2>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200 shadow-sm">
-              Add Component
+            <button className="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition duration-200 shadow-sm">
+              View Demo
             </button>
           </div>
         </header>
 
         <div className=" mx-auto py-6 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Overview Card */}
             <motion.div
               className="bg-white overflow-hidden shadow-sm rounded-lg"
@@ -87,8 +87,8 @@ export default function DashboardTemplate() {
                   Overview
                 </h3>
                 <p className="text-gray-600">
-                  Welcome to the AI Component Generator. Manage your components,
-                  explore templates, and optimize your workflow.
+                  Welcome to the Demo Dashboard. Explore examples, view
+                  templates, and discover the possibilities.
                 </p>
               </div>
             </motion.div>
@@ -129,7 +129,7 @@ export default function DashboardTemplate() {
                   {quickActions.map((action) => (
                     <button
                       key={action.name}
-                      className="flex items-center justify-center p-3 bg-indigo-50 rounded-md text-indigo-600 hover:bg-indigo-100 transition duration-200"
+                      className="flex items-center justify-center p-3 bg-emerald-50 rounded-md text-emerald-600 hover:bg-emerald-100 transition duration-200"
                     >
                       <action.icon className="w-5 h-5 mr-2" />
                       {action.name}
@@ -160,7 +160,7 @@ export default function DashboardTemplate() {
                     <span className="font-semibold">128</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Templates Created</span>
+                    <span className="text-gray-600">Templates Made</span>
                     <span className="font-semibold">15</span>
                   </div>
                 </div>

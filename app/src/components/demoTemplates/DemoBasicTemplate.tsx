@@ -77,8 +77,8 @@ export default function EnhancedDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto p-6 space-y-6">
         {/* Welcome Section */}
-        <section className="bg-gradient-to-r from-gray-800 to-gray-700 p-8 rounded-2xl shadow-xl">
-          <h2 className="text-3xl font-bold mb-4">Welcome to Your Dashboard</h2>
+        <section className="bg-gradient-to-r from-gray-800 to-gray-700 p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold mb-4">Basic</h2>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl">
             Transform your ideas into reality with AI-powered component
             generation. Start by selecting a component type or customize
