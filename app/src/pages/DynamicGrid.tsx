@@ -99,13 +99,13 @@ export default function DynamicGrid() {
   return (
     <div className="min-h-screen bg-black p-8">
       {/* Professional Control Panel with Dropdown */}
-      <div className="mb-8 bg-[#1a1a1a] p-6 rounded-lg border border-[#333] backdrop-blur-xl">
+      <div className="mb-8 bg-[#1a1a1a] p-6 rounded-lg border border-[#333] backdrop-blur-xl relative z-50">
         <div className="flex items-center gap-6">
           <span className="text-white/80 text-sm font-medium whitespace-nowrap">
             Add Component:
           </span>
 
-          <div className="relative group">
+          <div className="relative">
             <button className="w-[200px] px-4 py-2 text-sm font-medium text-white/80 bg-[#2a2a2a] border border-[#333] rounded-md hover:bg-[#333] hover:text-white transition-all duration-200 flex items-center justify-between">
               <span>Select Component</span>
               <svg
@@ -124,7 +124,7 @@ export default function DynamicGrid() {
             </button>
 
             {/* Dropdown Menu */}
-            <div className="absolute top-full left-0 mt-2 w-full bg-[#2a2a2a] border border-[#333] rounded-md shadow-xl opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+            <div className="absolute top-full left-0 mt-2 w-full bg-[#2a2a2a] border border-[#333] rounded-md shadow-xl opacity-100 z-50">
               {componentTypes.map((type) => (
                 <button
                   key={type.value}
@@ -194,7 +194,7 @@ export default function DynamicGrid() {
               </button>
             </div>
 
-            {/* Sophisticated Content Layout */}
+            {/* Content */}
             <div className="flex flex-col items-center gap-3 p-6">
               <input
                 type="text"
@@ -206,17 +206,6 @@ export default function DynamicGrid() {
               <span className="text-[11px] font-medium text-white/40 tracking-wider uppercase">
                 {item.type}
               </span>
-            </div>
-
-            {/* Drag Handle Indicator */}
-            <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-40 transition-opacity duration-200">
-              <svg
-                className="w-4 h-4 text-white"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M8 6a2 2 0 11-4 0 2 2 0 014 0zM8 12a2 2 0 11-4 0 2 2 0 014 0zM6 20a2 2 0 100-4 2 2 0 000 4zM20 6a2 2 0 11-4 0 2 2 0 014 0zM18 14a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" />
-              </svg>
             </div>
           </div>
         ))}
